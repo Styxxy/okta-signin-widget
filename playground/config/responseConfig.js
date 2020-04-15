@@ -3,7 +3,7 @@
 const idx = {
   // ===== IDX
 
-  '/idp/idx/introspect': ['identify'],
+  '/idp/idx/introspect': ['enroll-profile'],
   '/idp/idx': ['select-factor-authenticate'],
   '/idp/idx/enroll': ['enroll-profile'],
   '/idp/idx/challenge/answer': [
