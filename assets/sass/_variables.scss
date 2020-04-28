@@ -22,9 +22,9 @@ $primary-bg-color: #fff;
 $secondary-bg-color: #f9f9f9;
 
 // Text Color
-$header-text-color: #5e5e5e;
-$dark-text-color: #5e5e5e;
-$medium-text-color: #777;
+$header-text-color: #2f3f4a; // gray 900
+$dark-text-color: #2f3f4a; // gray 900
+$medium-text-color: #5c6971; // gray 700
 $light-text-color: #a7a7a7;
 $link-text-color: #0074b3;
 $placeholder-text-color: #aaa;
@@ -34,7 +34,7 @@ $error-text-color: #e34843;
 $icon-button-bg-color: #fff;
 $button-bg-color: #fbfbfb;
 $dark-button-bg-color: #929292;
-$primary-button-bg-color: #007dc1;
+$primary-button-bg-color: #1662dd; // Action base
 $success-button-bg-color: #4cbf9c;
 $negative-button-bg-color: #c35151;
 $disabled-button-text-color: #aaa;
@@ -50,9 +50,9 @@ $form-divider-color: #e8e8e8;
 $facebook-icon-bg-color: #304879; // fb brand color - #3B5998
 $facebook-label-bg-color: #406094;
 $facebook-border-color: #375685;
-$google-icon-bg-color: #d43722; // google brand color - #DC4E41
-$google-label-bg-color: #de4937;
-$google-border-color: #b63c33;
+$google-icon-bg-color: #fff;
+$google-label-bg-color: $button-bg-color;
+$google-border-color: darken($button-bg-color, 22%);
 $linkedin-icon-bg-color: #04659a; // linkedin brand color - #0077B5
 $linkedin-label-bg-color: #0077b5;
 $linkedin-border-color: #0f608f;
