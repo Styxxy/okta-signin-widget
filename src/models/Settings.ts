@@ -114,6 +114,7 @@ const local: Record<string, ModelProperty> = {
   'features.disableAutocomplete': ['boolean', false, false],
 
   defaultCountryCode: ['string', false, 'US'],
+  allowedCountryCodes: ['array', false],
 
   // I18N
   language: ['any', false], // Can be a string or a function
@@ -298,12 +299,21 @@ const derived: Record<string, ModelProperty>  = {
     deps: ['language', 'supportedLanguages'],
     fn: getLanguageTags,
   },
+  countries: {
+    deps: ['allowedCountryCodes'],
+    fn: function(allowedCountryCodes) {
+      return CountryUtil.getCountries(allowedCountryCodes);
+    },
+  },
   countryCode: {
-    deps: ['defaultCountryCode'],
-    fn: function(defaultCountryCode) {
-      const countries = CountryUtil.getCountries();
-      return Object.keys(countries).includes(defaultCountryCode)
-        ? defaultCountryCode : 'US';
+    deps: ['defaultCountryCode', 'countries'],
+    fn: function(defaultCountryCode, countries) {
+      const countryKeys = Object.keys(countries);
+      if (countryKeys.indexOf(defaultCountryCode) > -1) {
+        return defaultCountryCode;
+      }
+      return countryKeys.indexOf('US') > -1
+        ? 'US' : countryKeys[0];
     },
   },
   mode: {

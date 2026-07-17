@@ -103,6 +103,7 @@ See the [Usage Guide](#usage-guide) for more information on how to get started u
     - [Supported languages](#supported-languages)
     - [language](#language)
     - [defaultCountryCode](#defaultcountrycode)
+    - [allowedCountryCodes](#allowedcountrycodes)
     - [i18n](#i18n)
   - [assets](#assets)
     - [assets.baseUrl](#assetsbaseurl)
@@ -988,6 +989,10 @@ language: (supportedLanguages, userLanguages) => {
 #### defaultCountryCode
 
 Set the default countryCode of the widget. If no `defaultCountryCode` is provided, defaults to `US`. It sets the country calling code for phone number accordingly in the widget.
+
+#### allowedCountryCodes
+
+Filter the country list shown during phone factor enrollment. Provide an array of country codes, for example `['US', 'CA', 'GB']`. If no `allowedCountryCodes` value is provided, the full country list is displayed.
 
 #### i18n
 

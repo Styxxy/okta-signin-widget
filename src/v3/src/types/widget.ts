@@ -210,6 +210,7 @@ export type WidgetOptions = {
     gracePeriodRequiredSoon: Omit<CustomLink, 'target'>;
   };
   defaultCountryCode?: string;
+  allowedCountryCodes?: string[];
   transformUsername?: (username: string, operation: UserOperation) => string;
   globalSuccessFn?: (res: RenderResult) => void;
   globalErrorFn?: (res: RenderError) => void;

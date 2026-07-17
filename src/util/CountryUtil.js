@@ -17,11 +17,16 @@ import countryCallingCodes from './countryCallingCodes';
 const fn = {};
 
 // () => [{ countryCode: countryName }], sorted by countryName
-fn.getCountries = function() {
-  const countries = _.omit(bundles.country, 'HM', 'BV', 'TF');
+fn.getCountries = function(allowedCountryCodes) {
+  let countries = _.omit(bundles.country, ['HM', 'BV', 'TF']);
   // HM, BV, and TF do not have phone prefixes, so don't give the
   // user the option to choose these countries. FYI it appears that these
   // countries do not have calling codes because they are ~~uninhabited~~
+
+  if (_.isArray(allowedCountryCodes) && !_.isEmpty(allowedCountryCodes)) {
+    const filteredCountries = _.pick(countries, allowedCountryCodes);
+    countries = _.isEmpty(filteredCountries) ? countries : filteredCountries;
+  }
 
   let collection = _.map(countries, function(name, code) {
     return { name: name, code: code };

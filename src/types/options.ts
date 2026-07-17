@@ -45,6 +45,7 @@ export interface WidgetOptions
   processCreds?: (creds: Creds, callback?: SimpleCallback) => void;
   // Language and text
   language?: LanguageCode | LanguageCallback | string;
+  allowedCountryCodes?: string[];
   i18n?: any; // TODO
   // {
   //   [languageCode in LanguageCode]?: {

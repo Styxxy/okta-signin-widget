@@ -34,6 +34,7 @@ Expect.describe('EnrollSms', function() {
       baseUrl: baseUrl,
       authClient: authClient,
       defaultCountryCode: routerOptions.defaultCountryCode,
+      allowedCountryCodes: routerOptions.allowedCountryCodes,
       'features.router': startRouter,
     });
 
@@ -236,6 +237,84 @@ Expect.describe('EnrollSms', function() {
         })
         .then(function(test) {
           expect(test.form.selectedCountry()).toBe('United Kingdom');
+        });
+    });
+    itp('filters country list based on allowedCountryCodes from settings', function() {
+      return setup(allFactorsRes, undefined, { defaultCountryCode: 'FR', allowedCountryCodes: ['GB', 'FR'] })
+        .then(function(test) {
+          return Expect.wait(function() {
+            return test.form.hasCountriesList();
+          }, test);
+        })
+        .then(function(test) {
+          expect(test.form.countriesList()).toEqual([
+            { val: 'FR', text: 'France' },
+            { val: 'GB', text: 'United Kingdom' },
+          ]);
+          expect(test.form.selectedCountry()).toBe('France');
+          expect(test.form.phonePrefixText()).toBe('+33');
+        });
+    });
+    itp('selects defaultCountryCode when it is in the middle of allowedCountryCodes', function() {
+      return setup(allFactorsRes, undefined, { defaultCountryCode: 'GB', allowedCountryCodes: ['US', 'GB', 'FR'] })
+        .then(function(test) {
+          return Expect.wait(function() {
+            return test.form.hasCountriesList();
+          }, test);
+        })
+        .then(function(test) {
+          expect(test.form.countriesList()).toEqual([
+            { val: 'FR', text: 'France' },
+            { val: 'GB', text: 'United Kingdom' },
+            { val: 'US', text: 'United States' },
+          ]);
+          expect(test.form.selectedCountry()).toBe('United Kingdom');
+          expect(test.form.phonePrefixText()).toBe('+44');
+        });
+    });
+    itp('selects defaultCountryCode when it is the last item in allowedCountryCodes', function() {
+      return setup(allFactorsRes, undefined, { defaultCountryCode: 'US', allowedCountryCodes: ['FR', 'GB', 'US'] })
+        .then(function(test) {
+          return Expect.wait(function() {
+            return test.form.hasCountriesList();
+          }, test);
+        })
+        .then(function(test) {
+          expect(test.form.countriesList()).toEqual([
+            { val: 'FR', text: 'France' },
+            { val: 'GB', text: 'United Kingdom' },
+            { val: 'US', text: 'United States' },
+          ]);
+          expect(test.form.selectedCountry()).toBe('United States');
+          expect(test.form.phonePrefixText()).toBe('+1');
+        });
+    });
+    itp('selects US when defaultCountryCode is not in allowedCountryCodes and US is present', function() {
+      return setup(allFactorsRes, undefined, { defaultCountryCode: 'JP', allowedCountryCodes: ['FR', 'GB', 'US'] })
+        .then(function(test) {
+          return Expect.wait(function() {
+            return test.form.hasCountriesList();
+          }, test);
+        })
+        .then(function(test) {
+          expect(test.form.selectedCountry()).toBe('United States');
+          expect(test.form.phonePrefixText()).toBe('+1');
+        });
+    });
+    itp('selects first filtered country when defaultCountryCode is not in allowedCountryCodes and US is absent', function() {
+      return setup(allFactorsRes, undefined, { defaultCountryCode: 'JP', allowedCountryCodes: ['GB', 'FR'] })
+        .then(function(test) {
+          return Expect.wait(function() {
+            return test.form.hasCountriesList();
+          }, test);
+        })
+        .then(function(test) {
+          expect(test.form.countriesList()).toEqual([
+            { val: 'FR', text: 'France' },
+            { val: 'GB', text: 'United Kingdom' },
+          ]);
+          expect(test.form.selectedCountry()).toBe('France');
+          expect(test.form.phonePrefixText()).toBe('+33');
         });
     });
     itp('uses "US" as countryCode if settings.defaultCountryCode is not valid', function() {
