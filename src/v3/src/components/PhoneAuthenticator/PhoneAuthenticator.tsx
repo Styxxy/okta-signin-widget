@@ -64,7 +64,7 @@ const PhoneAuthenticator: UISchemaElementComponent<UISchemaElementComponentWithV
   const countryLabel = getTranslation(translations, 'country');
 
   const { features: { disableAutocomplete } = {} } = widgetProps;
-  const countries = CountryUtil.getCountries() as Record<string, string>;
+  const countries = CountryUtil.getCountries(widgetProps.allowedCountryCodes) as Record<string, string>;
   const [phone, setPhone] = useState<string>('');
   // Sets the default country code
   const defaultCountryCode = getDefaultCountryCode(widgetProps);

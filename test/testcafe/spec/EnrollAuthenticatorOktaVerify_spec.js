@@ -598,6 +598,23 @@ test.requestHooks(logger, enrollViaSmsMocks1)('respects settings.defaultCountryC
   // United Kingdom (+44)
   const gbCountryCodeText = await enrollViaSMSPageObject.getCountryLabel();
   await t.expect(gbCountryCodeText).match(/\+44/);
+
+  await rerenderWidget({
+    defaultCountryCode: 'JP',
+    allowedCountryCodes: ['GB', 'FR'],
+  });
+  if (!userVariables.mobile) {
+    await enrollOktaVerifyPage.clickSwitchChannel();
+  }
+  await switchChannelPageObject.clickNextButton();
+
+  const filteredCountryCodeText = await enrollViaSMSPageObject.getCountryLabel();
+  await t.expect(filteredCountryCodeText).match(/\+33/);
+  await t.expect(enrollViaSMSPageObject.getCountryOptionCount()).eql(2);
+  await t.expect(enrollViaSMSPageObject.getCountryOptionValue(0)).eql('FR');
+  await t.expect(enrollViaSMSPageObject.getCountryOptionText(0)).contains('France');
+  await t.expect(enrollViaSMSPageObject.getCountryOptionValue(1)).eql('GB');
+  await t.expect(enrollViaSMSPageObject.getCountryOptionText(1)).contains('United Kingdom');
 });
 
 test.requestHooks(resendSmsMocks)('after timeout should be able see and click send again link when enrolling via sms', async t => {

@@ -596,6 +596,31 @@ Expect.describe('EnrollTotp', function() {
           Expect.isVisible(test.manualSetupForm.nextButton());
         });
     });
+    itp('filters sms country list based on allowedCountryCodes from settings', function() {
+      return setupOktaPushFn({ defaultCountryCode: 'JP', allowedCountryCodes: ['GB', 'FR'] })
+        .then(function(test) {
+          test.originalAjax = Util.stallEnrollFactorPoll(test.ac);
+          return enrollFactor(test, pushEnrollSuccessRes);
+        })
+        .then(function(test) {
+          return Expect.waitForBarcodePush(test);
+        })
+        .then(function(test) {
+          test.setNextResponse([factorsWithPushRes, pushEnrollSuccessRes]);
+          test.scanCodeForm.clickManualSetupLink();
+          return Expect.waitForManualSetupPush(test);
+        })
+        .then(function(test) {
+          return test.manualSetupForm.waitForCountryCodeSelect(test);
+        })
+        .then(function(test) {
+          expect(test.manualSetupForm.countryCodeOptions()).toEqual([
+            { val: 'FR', text: 'France' },
+            { val: 'GB', text: 'United Kingdom' },
+          ]);
+          expect(test.manualSetupForm.selectedOption('countryCode')).toBe('France');
+        });
+    });
     itp('returns to factor list when browser\'s back button is clicked', function() {
       return setupOktaPushFn({}, true)
         .then(function(test) {

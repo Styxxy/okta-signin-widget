@@ -172,7 +172,7 @@ export default FormController.extend({
           name: 'countryCode',
           type: 'select',
           wide: true,
-          options: CountryUtil.getCountries(),
+          options: this.settings.get('countries'),
           showWhen: { activationType: 'SMS' },
         }),
         FormType.Input({
@@ -285,7 +285,7 @@ export default FormController.extend({
   setInitialModel: function() {
     if (this.options.appState.get('factorActivationType') === 'SMS') {
       this.model.set({
-        countryCode: this.options.appState.get('userCountryCode') || 'US',
+        countryCode: this.options.appState.get('userCountryCode') || this.settings.get('countryCode'),
         phoneNumber: this.options.appState.get('userPhoneNumber'),
       });
     }

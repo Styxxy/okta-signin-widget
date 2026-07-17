@@ -26,6 +26,18 @@ export default class EnrollOVViaEmailPageObject extends BasePageObject {
     return this.form.getElement(COUNTRY_CODE_LABEL).innerText;
   }
 
+  getCountryOptionCount() {
+    return this.form.getDropDown(COUNTRY_FIELD).child('option').count;
+  }
+
+  getCountryOptionText(index) {
+    return this.form.getDropDown(COUNTRY_FIELD).child('option').nth(index).textContent;
+  }
+
+  getCountryOptionValue(index) {
+    return this.form.getDropDown(COUNTRY_FIELD).child('option').nth(index).value;
+  }
+
   clickNextButton() {
     return this.form.clickSaveButton();
   }

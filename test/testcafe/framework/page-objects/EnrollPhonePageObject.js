@@ -57,6 +57,18 @@ export default class EnrollAuthenticatorPhonePageObject extends BasePageObject {
     return this.form.getElement(PHONE_NUMBER_COUNTRY_CODE).innerText;
   }
 
+  getCountryOptionCount() {
+    return this.form.getDropDown('country').child('option').count;
+  }
+
+  getCountryOptionText(index) {
+    return this.form.getDropDown('country').child('option').nth(index).textContent;
+  }
+
+  getCountryOptionValue(index) {
+    return this.form.getDropDown('country').child('option').nth(index).value;
+  }
+
   fillPhoneNumber(value) {
     return this.form.setTextBoxValue(PHONE_FIELD_NAME, value);
   }

@@ -73,6 +73,27 @@ describe('Settings Utils Tests', () => {
     expect(getDefaultCountryCode(widgetProps)).toBe('BW');
   });
 
+  it('should return org provided country code when it is allowed', () => {
+    widgetProps.defaultCountryCode = 'GB';
+    widgetProps.allowedCountryCodes = ['US', 'GB', 'FR'];
+
+    expect(getDefaultCountryCode(widgetProps)).toBe('GB');
+  });
+
+  it('should return "US" when org provided country code is not allowed and "US" is allowed', () => {
+    widgetProps.defaultCountryCode = 'JP';
+    widgetProps.allowedCountryCodes = ['FR', 'GB', 'US'];
+
+    expect(getDefaultCountryCode(widgetProps)).toBe('US');
+  });
+
+  it('should return first allowed country when org provided country code is not allowed and "US" is not allowed', () => {
+    widgetProps.defaultCountryCode = 'JP';
+    widgetProps.allowedCountryCodes = ['GB', 'FR'];
+
+    expect(getDefaultCountryCode(widgetProps)).toBe('FR');
+  });
+
   it('should not modify identifier if transform function is not defined', () => {
     const identifier = 'testuser@okta1.com';
     expect(transformIdentifier(widgetProps, 'identify', identifier)).toBe(identifier);

@@ -153,4 +153,17 @@ test.requestHooks(mock)('respects settings.defaultCountryCode', async t => {
   // United Kingdom (+44)
   const gbCountryCodeText = await enrollPhonePage.getCountryCodeValue();
   await t.expect(gbCountryCodeText).match(/\+44/);
+
+  await rerenderWidget({
+    defaultCountryCode: 'JP',
+    allowedCountryCodes: ['GB', 'FR'],
+  });
+
+  const filteredCountryCodeText = await enrollPhonePage.getCountryCodeValue();
+  await t.expect(filteredCountryCodeText).match(/\+33/);
+  await t.expect(enrollPhonePage.getCountryOptionCount()).eql(2);
+  await t.expect(enrollPhonePage.getCountryOptionValue(0)).eql('FR');
+  await t.expect(enrollPhonePage.getCountryOptionText(0)).contains('France');
+  await t.expect(enrollPhonePage.getCountryOptionValue(1)).eql('GB');
+  await t.expect(enrollPhonePage.getCountryOptionText(1)).contains('United Kingdom');
 });

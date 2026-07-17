@@ -116,6 +116,21 @@ describe('PhoneAuthenticator tests', () => {
     expect(countrySelect.getAttribute('disabled')).toBe('');
   });
 
+  it('should filter country list based on allowedCountryCodes and use first allowed country as fallback', async () => {
+    widgetProps = { defaultCountryCode: 'JP', allowedCountryCodes: ['GB', 'FR'] };
+    mockData = { 'authenticator.methodType': 'sms' };
+    props = getComponentProps();
+    const { findByLabelText } = setup(<PhoneAuthenticatorControl {...props} />);
+
+    const countrySelect = await findByLabelText('Country/region') as HTMLSelectElement;
+
+    expect(Array.from(countrySelect.options).map(({ value, text }) => ({ value, text }))).toEqual([
+      { value: 'FR', text: 'France' },
+      { value: 'GB', text: 'United Kingdom' },
+    ]);
+    expect(countrySelect.value).toBe('FR');
+  });
+
   it('should format phoneNumber correctly when field is changed for voice methodType', async () => {
     mockData = { 'authenticator.methodType': 'voice' };
     props = getComponentProps();

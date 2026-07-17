@@ -31,6 +31,10 @@ export default Form.extend({
     return this.inputWrap(COUNTRY_CODE_SELECTOR).find('select');
   },
 
+  countryCodeOptions: function() {
+    return this.selectOptions(COUNTRY_CODE_SELECTOR);
+  },
+
   waitForCountryCodeSelect: function(resolveValue) {
     return Expect.wait(
       function() {
