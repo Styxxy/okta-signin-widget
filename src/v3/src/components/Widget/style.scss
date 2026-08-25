@@ -176,7 +176,7 @@
 }
 .okta-container .applogin-banner .applogin-container p {
   /* TODO: OKTA-586564 replace hardcoded value */
-  color: #6e6e78;
+  color: map.get($ods-tokens, 'typography', 'color', 'body');
   margin-block: 0;
 }
 
@@ -331,4 +331,10 @@ span.strong {
 }
 span.no-translate {
   white-space: nowrap;
+}
+/* Google Authenticator manual-entry secret key (OKTA-1185578).
+ * Visual spacing only — the secret stays a single string (no literal spaces)
+ * so it copies cleanly and a double-click selects the whole value. */
+span.shared-secret {
+  letter-spacing: 0.3em;
 }

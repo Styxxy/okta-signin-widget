@@ -44,6 +44,7 @@ const FORMS = {
   SELECT_AUTHENTICATOR_ENROLL_DATA: 'select-authenticator-enroll-data',
   AUTHENTICATOR_ENROLLMENT_DATA: 'authenticator-enrollment-data',
   ENROLL_AUTHENTICATOR: 'enroll-authenticator',
+  ENROLL_AUTHENTICATOR_PROMOTION: 'enroll-authenticator-promotion',
   SELECT_ENROLLMENT_CHANNEL: 'select-enrollment-channel',
   ENROLLMENT_CHANNEL_DATA: 'enrollment-channel-data',
   ENROLL_POLL: 'enroll-poll',
@@ -65,6 +66,7 @@ const FORMS = {
   DEVICE_APPLE_SSO_EXTENSION: 'device-apple-sso-extension',
   CANCEL_TRANSACTION: 'cancel-transaction',
   LAUNCH_AUTHENTICATOR: 'launch-authenticator',
+  LAUNCH_NFC_AUTHENTICATOR: 'launch-nfc-authenticator',
   LAUNCH_WEBAUTHN_AUTHENTICATOR: 'launch-webauthn-authenticator',
   ENROLL_WEBAUTHN_RESIDENTKEY: 'enroll-webauthn-residentkey',
   LAUNCH_PASSKEYS_AUTHENTICATOR: 'launch-passkeys-authenticator',
@@ -124,7 +126,8 @@ const AUTHENTICATOR_KEY = {
   YUBIKEY: 'yubikey_token',
   CUSTOM_APP: 'custom_app',
   SMARTCARD: 'smart_card_idp',
-  TAC: 'tac'
+  TAC: 'tac',
+  NFC_PIN: 'nfc_pin',
 };
 
 const AUTHENTICATOR_METHODS = {

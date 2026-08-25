@@ -37,6 +37,7 @@ export const AUTHENTICATOR_KEY: Record<string, string> = {
   CUSTOM_APP: 'custom_app',
   SMART_CARD_IDP: 'smart_card_idp',
   TAC: 'tac',
+  NFC_PIN: 'nfc_pin',
   DEFAULT: '__',
 };
 
@@ -57,6 +58,7 @@ export const IDX_STEP: Record<string, string> = {
   DEVICE_ENROLLMENT_TERMINAL: 'device-enrollment-terminal',
   ENROLLMENT_CHANNEL_DATA: 'enrollment-channel-data',
   ENROLL_AUTHENTICATOR: 'enroll-authenticator',
+  ENROLL_AUTHENTICATOR_PROMOTION: 'enroll-authenticator-promotion',
   ENROLL_POLL: 'enroll-poll',
   ENROLL_PROFILE: 'enroll-profile',
   ENROLL_PROFILE_UPDATE: 'profile-update',
@@ -66,6 +68,7 @@ export const IDX_STEP: Record<string, string> = {
   IDENTIFY_RECOVERY: 'identify-recovery',
   KEEP_ME_SIGNED_IN: 'keep-me-signed-in',
   LAUNCH_AUTHENTICATOR: 'launch-authenticator',
+  LAUNCH_NFC_AUTHENTICATOR: 'launch-nfc-authenticator',
   LAUNCH_WEBAUTHN_AUTHENTICATOR: 'launch-webauthn-authenticator',
   LAUNCH_PASSKEYS_AUTHENTICATOR: 'launch-passkeys-authenticator',
   PIV_IDP: 'piv-idp',
@@ -161,6 +164,10 @@ export const OV_UV_ENABLE_BIOMETRICS_FASTPASS_MOBILE = 'oie.authenticator.oktave
 export const OV_NMC_FORCE_UPGRADE_SERVER_KEY = 'oie.authenticator.app.method.push.force.upgrade.number_challenge';
 export const ON_PREM_TOKEN_CHANGE_ERROR_KEY = 'errors.E0000113';
 
+export const NFC_SIGN_IN_TO_ENROLL_SERVER_KEY = 'api.authenticator.error.nfc.sign_in_to_use';
+export const NFC_UNAVAILABLE_SERVER_KEY = 'api.authenticator.error.nfc.unavailable';
+export const FASTPASS_BLOCKED_SHARED_DEVICE_SERVER_KEY = 'api.authenticator.error.fastpass.blocked_shared_device';
+
 export const EMAIL_AUTHENTICATOR_TERMINAL_KEYS = [
   TERMINAL_KEY.EMAIL_LINK_CANT_BE_PROCESSED,
   TERMINAL_KEY.EMAIL_LINK_OUT_OF_DATE,
@@ -240,6 +247,7 @@ export const AUTHENTICATOR_ENROLLMENT_DESCR_KEY_MAP: Record<string, string> = {
   [AUTHENTICATOR_KEY.SMART_CARD_IDP]: 'oie.smartcard.authenticator.description',
   // TAC is not eligible for inline enrollment, so this should be unreachable
   [AUTHENTICATOR_KEY.TAC]: 'oie.tac.authenticator.description',
+  [AUTHENTICATOR_KEY.NFC_PIN]: 'oie.nfc_pin.authenticator.description',
 };
 
 export const CHALLENGE_INTENT_TO_I18KEY: Record<string, string> = {

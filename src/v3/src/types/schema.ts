@@ -477,6 +477,7 @@ export interface LaunchAuthenticatorButtonElement extends UISchemaElement {
     step: string;
     deviceChallengeUrl?: string;
     challengeMethod?: string;
+    i18nKey?: string;
   };
 }
 
@@ -658,6 +659,11 @@ export interface QRCodeElement extends UISchemaElement {
   options: {
     data: string;
   };
+}
+
+export interface PasskeyPromotionIllustrationElement extends UISchemaElement {
+  type: 'PasskeyPromotionIllustration';
+  options: Record<string, never>;
 }
 
 export interface SpinnerElement extends UISchemaElement {
